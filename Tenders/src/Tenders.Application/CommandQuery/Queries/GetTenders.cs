@@ -38,6 +38,12 @@ public class GetTenders
         {
             RuleFor(command => command.PageSize).GreaterThanOrEqualTo(1);
             RuleFor(command => command.PageNumber).GreaterThanOrEqualTo(1);
+            RuleFor(command => command.OrderBy)
+                .Must(x => x == TenderOrderBy.Date || x == TenderOrderBy.PriceEur)
+                .WithMessage("OrderBy must be 'Date' or 'PriceEur'.");
+            RuleFor(command => command.OrderDirection)
+                .Must(x => x == OrderDirection.Asc || x == OrderDirection.Desc)
+                .WithMessage("OrderDirection must be 'Asc' or 'Desc'.");
         }
     }
 
